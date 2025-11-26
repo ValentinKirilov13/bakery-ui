@@ -16,7 +16,7 @@ const links = [
     {
         _id: 2,
         name: "Products",
-        to: "/products",
+        to: "/products-catalog",
         icon: ShoppingBagIcon,
     },
     {
@@ -40,7 +40,7 @@ export default function NavLinks() {
                 <Link
                     to={link.to}
                     key={link._id}
-                    className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold text-white hover:bg-white/5"
+                    className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold hover:bg-amber-100"
                 >
                     <div className="flex items-center gap-1">
                         <link.icon className="size-5 mr-1 inline-block" /> {link.name}

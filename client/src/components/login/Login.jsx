@@ -2,14 +2,12 @@ import { Link } from "react-router";
 
 export default function Login() {
     return (
-        <div className="grow flex flex-col justify-center p-9">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img
-                    alt="Your Company"
-                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                    className="mx-auto h-10 w-auto"
-                />
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
+        <div className="grow flex flex-col justify-center p-9  bg-amber-100">
+            {/* <div className="mx-auto  bg-amber-100 p-15 rounded-xl shadow-lg max-w-sm"> */}
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col">
+                <img alt="" src="/logo.svg" className="mx-auto h-10 w-auto scale-300 origin-left" />
+
+                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-amber-900">
                     Sign in to your account
                 </h2>
             </div>
@@ -19,7 +17,7 @@ export default function Login() {
                     <div>
                         <label
                             htmlFor="email"
-                            className="block text-sm/6 font-medium text-gray-100"
+                            className="block text-sm/6 font-medium text-amber-900"
                         >
                             Email address
                         </label>
@@ -30,7 +28,7 @@ export default function Login() {
                                 type="email"
                                 required
                                 autoComplete="email"
-                                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
                         </div>
                     </div>
@@ -39,7 +37,7 @@ export default function Login() {
                         <div className="flex items-center justify-between">
                             <label
                                 htmlFor="password"
-                                className="block text-sm/6 font-medium text-gray-100"
+                                className="block text-sm/6 font-medium text-amber-900"
                             >
                                 Password
                             </label>
@@ -51,7 +49,7 @@ export default function Login() {
                                 type="password"
                                 required
                                 autoComplete="current-password"
-                                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
                         </div>
                     </div>
@@ -59,7 +57,7 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                         >
                             Sign in
                         </button>
@@ -70,12 +68,13 @@ export default function Login() {
                     <span>Not a member?</span>
                     <Link
                         to="/register"
-                        className="font-semibold text-indigo-400 hover:text-indigo-300 ml-2"
+                        className="font-semibold text-amber-500 hover:text-amber-600 ml-2"
                     >
                         Sign up now
                     </Link>
                 </div>
             </div>
+            {/* </div> */}
         </div>
     );
 }
