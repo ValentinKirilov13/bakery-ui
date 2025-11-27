@@ -8,6 +8,7 @@ import Register from "./components/register/Register";
 import Blog from "./components/blog/Blog";
 import AboutUs from "./components/about-us/AboutUs";
 import ProductsCatalog from "./components/products-catalog/ProductsCatalog";
+import ProductDetails from "./components/product-details/ProductDetails";
 
 export default function App() {
     return (
@@ -16,7 +17,10 @@ export default function App() {
                 <Routes>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Home />} />
-                        <Route path="/products-catalog" element={<ProductsCatalog />} />
+                        <Route path="/products-catalog">
+                            <Route index element={<ProductsCatalog />} />
+                            <Route path=":product/details" element={<ProductDetails />} />
+                        </Route>
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/about-us" element={<AboutUs />} />
                     </Route>
