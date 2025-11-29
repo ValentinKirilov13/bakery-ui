@@ -57,7 +57,7 @@ export default function Login() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+                            className="cursor-pointer w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                         >
                             Sign in
                         </button>

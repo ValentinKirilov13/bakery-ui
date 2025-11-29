@@ -1,3 +1,4 @@
+// import { ShoppingBagIcon, UserIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router";
 
 export default function AuthLinks() {
@@ -16,6 +17,24 @@ export default function AuthLinks() {
                 >
                     Sign up
                 </Link>
+
+                {/* <div className="w-7 h-auto">
+                    <Link
+                        to="/shopping-bag"
+                        className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold  hover:bg-amber-100"
+                    >
+                        <ShoppingBagIcon />
+                    </Link>
+                </div>
+
+                <div className="w-7 h-auto">
+                    <Link
+                        to="/profile"
+                        className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold  hover:bg-white bg-amber-100"
+                    >
+                        <UserIcon />
+                    </Link>
+                </div> */}
             </div>
         </>
     );
