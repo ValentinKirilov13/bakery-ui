@@ -1,0 +1,23 @@
+{
+    "f1a2b3c4-d5e6-7f89-0123-456789abcdef": {
+        "_id": "f1a2b3c4-d5e6-7f89-0123-456789abcdef",
+        "_ownerId": "a1b2c3d4-1111-2222-3333-444455556666",
+        "_productId": "1a2b3c4d-1111-2222-3333-444455556666",
+        "stars": 5,
+        "review": "Absolutely loved it! Perfect texture and chocolate filling is smooth and rich."
+    },
+    "a2b3c4d5-e6f7-8901-2345-6789abcdef01": {
+        "_id": "a2b3c4d5-e6f7-8901-2345-6789abcdef01",
+        "_ownerId": "b2c3d4e5-2222-3333-4444-555566667777",
+        "_productId": "1a2b3c4d-1111-2222-3333-444455556666",
+        "stars": 4,
+        "review": "Very tasty croissant, but slightly smaller than expected. Still highly recommend!"
+    },
+    "b3c4d5e6-f789-0123-4567-89abcdef0123": {
+        "_id": "b3c4d5e6-f789-0123-4567-89abcdef0123",
+        "_ownerId": "a1b2c3d4-1111-2222-3333-444455556666",
+        "_productId": "2b3c4d5e-2222-3333-4444-555566667777",
+        "stars": 3,
+        "review": "Good croissant, but the chocolate could be a bit richer."
+    }
+}

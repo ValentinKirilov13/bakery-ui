@@ -1,12 +1,14 @@
 {
     "1a2b3c4d-1111-2222-3333-444455556666": {
         "_id": "1a2b3c4d-1111-2222-3333-444455556666",
-        "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
-        "name": "Sourdough Bread",
+        "name": "Ekleri",
         "category": "Bread",
-        "quantity": 25,
-        "bakedOn": "2024-01-15",
-        "imageUrl": "/images/sourdough.png",
+        "imageUrl": [
+            "/images/ekleri_1.jpg",
+            "/images/ekleri_2.jpg",
+            "/images/ekleri_3.jpg",
+            "/images/ekleri_4.jpg"
+        ],
         "description": "A naturally fermented artisan loaf with crisp crust and tangy flavor.",
         "price": 5.99,
         "ingredients": ["Flour", "Water", "Salt", "Natural Yeast"],
@@ -23,7 +25,12 @@
         "category": "Pastry",
         "quantity": 60,
         "bakedOn": "2024-01-17",
-        "imageUrl": "/images/choco_croissant.png",
+        "imageUrl": [
+            "/images/hlebche_1.jpg",
+            "/images/hlebche_2.jpg",
+            "/images/hlebche_3.jpg",
+            "/images/hlebche_4.jpg"
+        ],
         "description": "Flaky croissant dough filled with smooth dark chocolate.",
         "price": 2.5,
         "ingredients": ["Flour", "Butter", "Chocolate", "Sugar", "Eggs"],
@@ -40,7 +47,12 @@
         "category": "Muffin",
         "quantity": 80,
         "bakedOn": "2024-01-14",
-        "imageUrl": "/images/blueberry_muffin.png",
+        "imageUrl": [
+            "/images/keksche_bqlo_1.jpeg",
+            "/images/keksche_bqlo_2.jpeg",
+            "/images/keksche_bqlo_3.jpeg",
+            "/images/keksche_bqlo_4.jpeg"
+        ],
         "description": "Moist muffin packed with fresh blueberries.",
         "price": 2.95,
         "ingredients": ["Flour", "Blueberries", "Sugar", "Eggs", "Butter"],
@@ -57,7 +69,12 @@
         "category": "Pastry",
         "quantity": 40,
         "bakedOn": "2024-01-17",
-        "imageUrl": "/images/cinnamon_roll.png",
+        "imageUrl": [
+            "/images/keksche_kafqvo_1.jpeg",
+            "/images/keksche_kafqvo_2.jpeg",
+            "/images/keksche_kafqvo_3.jpeg",
+            "/images/keksche_kafqvo_4.jpeg"
+        ],
         "description": "Soft swirled pastry filled with cinnamon sugar and topped with icing.",
         "price": 3.5,
         "ingredients": ["Flour", "Butter", "Sugar", "Cinnamon", "Milk"],
@@ -74,7 +91,12 @@
         "category": "Bread",
         "quantity": 50,
         "bakedOn": "2024-01-16",
-        "imageUrl": "/images/baguette.png",
+        "imageUrl": [
+            "/images/kozunak_1.jpg",
+            "/images/kozunak_2.jpg",
+            "/images/kozunak_3.jpg",
+            "/images/kozunak_4.jpg"
+        ],
         "description": "Classic French baguette with a crunchy crust and soft airy interior.",
         "price": 2.1,
         "ingredients": ["Flour", "Water", "Salt", "Yeast"],
@@ -91,7 +113,12 @@
         "category": "Dessert",
         "quantity": 30,
         "bakedOn": "2024-01-13",
-        "imageUrl": "/images/cheesecake.png",
+        "imageUrl": [
+            "/images/kroasan_1.jpg",
+            "/images/kroasan_2.jpg",
+            "/images/kroasan_3.jpg",
+            "/images/kroasan_4.jpg"
+        ],
         "description": "Creamy cheesecake baked on a golden biscuit crust.",
         "price": 4.99,
         "ingredients": ["Cream Cheese", "Sugar", "Eggs", "Butter", "Biscuit Crumbs"],
@@ -108,7 +135,12 @@
         "category": "Bread",
         "quantity": 35,
         "bakedOn": "2024-01-16",
-        "imageUrl": "/images/banana_bread.png",
+        "imageUrl": [
+            "/images/panetone_1.jpeg",
+            "/images/panetone_2.jpeg",
+            "/images/panetone_3.jpeg",
+            "/images/panetone_4.jpeg"
+        ],
         "description": "Soft, sweet loaf made with ripe bananas and warm spices.",
         "price": 6.25,
         "ingredients": ["Flour", "Bananas", "Sugar", "Eggs", "Butter"],
@@ -125,7 +157,12 @@
         "category": "Dessert",
         "quantity": 45,
         "bakedOn": "2024-01-12",
-        "imageUrl": "/images/macarons.png",
+        "imageUrl": [
+            "/images/torta_1.jpg",
+            "/images/torta_2.jpg",
+            "/images/torta_3.jpg",
+            "/images/torta_4.jpg"
+        ],
         "description": "Assorted French macarons with delicate almond shells and flavored fillings.",
         "price": 12.0,
         "ingredients": ["Almond Flour", "Egg Whites", "Sugar", "Buttercream"],
@@ -133,39 +170,5 @@
         "shelfLife": "7 days (refrigerated)",
         "weight": "180g",
         "_createdOn": 1715535150000
-    },
-
-    "9i0j1k2l-9999-aaaa-bbbb-ccccddddeeee": {
-        "_id": "9i0j1k2l-9999-aaaa-bbbb-ccccddddeeee",
-        "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
-        "name": "Multigrain Loaf",
-        "category": "Bread",
-        "quantity": 28,
-        "bakedOn": "2024-01-15",
-        "imageUrl": "/images/multigrain_loaf.png",
-        "description": "Hearty loaf made from whole grains and seeds for a rich flavor.",
-        "price": 4.8,
-        "ingredients": ["Whole Wheat Flour", "Oats", "Seeds", "Water", "Yeast"],
-        "allergens": ["Gluten", "Sesame"],
-        "shelfLife": "4 days",
-        "weight": "650g",
-        "_createdOn": 1715798000000
-    },
-
-    "0j1k2l3m-aaaa-bbbb-cccc-ddddeeeeffff": {
-        "_id": "0j1k2l3m-aaaa-bbbb-cccc-ddddeeeeffff",
-        "_ownerId": "847ec027-f659-4086-8032-5173e2f9c93a",
-        "name": "Strawberry Tart",
-        "category": "Dessert",
-        "quantity": 20,
-        "bakedOn": "2024-01-17",
-        "imageUrl": "/images/strawberry_tart.png",
-        "description": "Fresh strawberries arranged on creamy custard in a buttery tart shell.",
-        "price": 5.75,
-        "ingredients": ["Flour", "Butter", "Custard", "Strawberries", "Sugar"],
-        "allergens": ["Gluten", "Dairy", "Eggs"],
-        "shelfLife": "2 days",
-        "weight": "170g",
-        "_createdOn": 1715888000000
     }
 }
