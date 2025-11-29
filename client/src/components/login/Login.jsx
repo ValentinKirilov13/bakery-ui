@@ -3,9 +3,12 @@ import { Link } from "react-router";
 export default function Login() {
     return (
         <div className="grow flex flex-col justify-center p-9  bg-amber-100">
-            {/* <div className="mx-auto  bg-amber-100 p-15 rounded-xl shadow-lg max-w-sm"> */}
             <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col">
-                <img alt="" src="/logo.svg" className="mx-auto h-10 w-auto scale-300 origin-left" />
+                <img
+                    alt="Your Company"
+                    src="/logo.svg"
+                    className="mx-auto h-40 w-auto rounded-4xl"
+                />
 
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-amber-900">
                     Sign in to your account
@@ -28,7 +31,7 @@ export default function Login() {
                                 type="email"
                                 required
                                 autoComplete="email"
-                                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
+                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
                         </div>
                     </div>
@@ -49,7 +52,7 @@ export default function Login() {
                                 type="password"
                                 required
                                 autoComplete="current-password"
-                                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
+                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
                         </div>
                     </div>
@@ -74,7 +77,6 @@ export default function Login() {
                     </Link>
                 </div>
             </div>
-            {/* </div> */}
         </div>
     );
 }
