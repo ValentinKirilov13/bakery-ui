@@ -8,21 +8,27 @@ import AuthLinks from "./nav-links/AuthLinks";
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    const mobileNavLinkClickHandler = () => {
+        setMobileMenuOpen(false);
+    };
+
     return (
-        <header>
+        <header className="relative z-50 shadow-[0_8px_25px_rgba(254,243,199,0.6)]">
             <nav
                 aria-label="Global"
-                className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+                className="mx-auto flex max-w-7xl items-center justify-between p-8 lg:px-8"
             >
                 <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
-                        <span className="sr-only">Sladotvornitsa</span>
-                        <img
-                            alt=""
-                            src="/logo.svg"
-                            className="h-10 w-auto scale-300 origin-left bg-black"
-                        />
-                    </a>
+                    <div className="relative">
+                        <Link to="/" className="absolute h-40 w-24 -top-13">
+                            <span className="sr-only">Sladotvornitsa</span>
+                            <img
+                                alt="Your Company"
+                                src="/logo.svg"
+                                className="mx-auto   rounded-4xl"
+                            />
+                        </Link>
+                    </div>
                 </div>
                 <div className="flex lg:hidden">
                     <button
@@ -35,21 +41,21 @@ export default function Header() {
                     </button>
                 </div>
                 <div className="hidden lg:flex lg:gap-x-12">
-                    <NavLinks />
+                    <NavLinks onClick={mobileNavLinkClickHandler} />
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center space-x-6">
                     <AuthLinks />
                 </div>
-                <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+                <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden ">
                     <div className="fixed inset-0 z-50" />
-                    <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+                    <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
                         <div className="flex items-center justify-between">
                             <Link to="/" className="-m-1.5 p-1.5">
                                 <span className="sr-only">Your Company</span>
                                 <img
-                                    alt=""
-                                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                    className="h-8 w-auto"
+                                    alt="Your Company"
+                                    src="/logo.svg"
+                                    className="mx-auto h-30 w-auto rounded-4xl"
                                 />
                             </Link>
                             <button
@@ -64,7 +70,7 @@ export default function Header() {
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-white/10">
                                 <div className="space-y-2 py-6">
-                                    <NavLinks />
+                                    <NavLinks onClick={mobileNavLinkClickHandler} />
                                 </div>
                                 <div className="py-6">
                                     <AuthLinks />

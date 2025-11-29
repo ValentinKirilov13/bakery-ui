@@ -6,7 +6,7 @@ export default function MainLayout() {
     return (
         <>
             <Header />
-            <main className="grow">
+            <main className="grow bg-white">
                 <Outlet />
             </main>
             <Footer />

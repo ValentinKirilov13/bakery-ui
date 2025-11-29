@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import {
     HomeIcon,
     BookOpenIcon,
@@ -33,14 +33,31 @@ const links = [
     },
 ];
 
-export default function NavLinks() {
+export default function NavLinks({ onClick }) {
+    const { pathname } = useLocation();
+
+    const isActiveHandler = (link) => {
+        let isActive = false;
+
+        if (link.to === "/") {
+            isActive = pathname === "/";
+        } else {
+            isActive = pathname === link.to || pathname.startsWith(link.to + "/");
+        }
+
+        return isActive;
+    };
+
     return (
         <>
             {links.map((link) => (
                 <Link
+                    onClick={onClick}
                     to={link.to}
                     key={link._id}
-                    className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold hover:bg-amber-100"
+                    className={`${
+                        isActiveHandler(link) ? "bg-amber-100" : "hover:bg-amber-100"
+                    } -mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold`}
                 >
                     <div className="flex items-center gap-1">
                         <link.icon className="size-5 mr-1 inline-block" /> {link.name}
