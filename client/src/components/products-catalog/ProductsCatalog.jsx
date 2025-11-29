@@ -6,7 +6,9 @@ import Filters from "../filters/Filters";
 
 export default function ProductsCatalog() {
     // const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-    const products = useFetch("http://localhost:3030/jsonstore/products", []);
+    const products = useFetch("http://localhost:3030/jsonstore/products", [], (data) =>
+        Object.values(data)
+    );
 
     return (
         <div>
