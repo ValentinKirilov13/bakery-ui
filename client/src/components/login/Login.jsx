@@ -1,6 +1,28 @@
-import { Link } from "react-router";
+import {Link, useLocation, useNavigate} from "react-router";
+import useForm from "../../hooks/useForm";
+import useUserContext from "../../hooks/useUserContext";
 
 export default function Login() {
+    const {loginHandler} = useUserContext();
+    const navigate = useNavigate();
+    const {state} = useLocation();
+    const from = state?.from?.pathname || "/";
+    const {registerInput, formAction} = useForm(
+        {
+            email: "",
+            password: "",
+        },
+        async ({email, password}) => {
+            try {
+                await loginHandler(email, password);
+
+                navigate(from);
+            } catch (error) {
+                alert(error);
+            }
+        }
+    );
+
     return (
         <div className="grow flex flex-col justify-center p-9  bg-amber-100">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col">
@@ -16,7 +38,7 @@ export default function Login() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form action="#" method="POST" className="space-y-6">
+                <form action={formAction} className="space-y-6">
                     <div>
                         <label
                             htmlFor="email"
@@ -27,7 +49,7 @@ export default function Login() {
                         <div className="mt-2">
                             <input
                                 id="email"
-                                name="email"
+                                {...registerInput("email")}
                                 type="email"
                                 required
                                 autoComplete="email"
@@ -48,7 +70,7 @@ export default function Login() {
                         <div className="mt-2">
                             <input
                                 id="password"
-                                name="password"
+                                {...registerInput("password")}
                                 type="password"
                                 required
                                 autoComplete="current-password"

@@ -28,6 +28,8 @@ export default function useRequest() {
 
         if (!response.ok) throw response.statusText;
 
+        if (response.status === 204) return null;
+
         return await response.json();
     };
 

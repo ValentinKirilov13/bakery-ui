@@ -1,9 +1,11 @@
 import {useState} from "react";
 import UserContext from "./UserContext";
 import useRequest from "../../hooks/useRequest";
+import {useNavigate} from "react-router";
 
 export default function UserProvider({children}) {
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
     const {request} = useRequest();
 
     const registerHandler = async (email, password) => {
@@ -30,6 +32,7 @@ export default function UserProvider({children}) {
         });
 
         setUser(null);
+        navigate("/");
     };
 
     const isAuthenticated = !!user?.accessToken;

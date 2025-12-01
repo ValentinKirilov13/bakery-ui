@@ -3,13 +3,15 @@ import {createContext} from "react";
 const UserContext = createContext({
     isAuthenticated: false,
     user: {
-        _id: "",
         email: "",
+        password: "",
+        _createdOn: 0,
+        _id: "",
         accessToken: "",
     },
-    registerHandler() {},
-    loginHandler() {},
-    logoutHandler() {},
+    registerHandler: async () => {},
+    loginHandler: async () => {},
+    logoutHandler: async () => {},
 });
 
 export default UserContext;
