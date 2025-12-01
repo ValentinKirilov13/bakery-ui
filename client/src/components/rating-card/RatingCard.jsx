@@ -1,30 +1,48 @@
-import { UserIcon } from "@heroicons/react/20/solid";
-import formatJoinDate from "../../utils/formatJoinDate";
+import {UserIcon} from "@heroicons/react/20/solid";
+import formatDate from "../../utils/formatDate";
 import StarRating from "./star-rating/StarRating";
-import useFetch from "../../hooks/useFetch";
+import {Link, useLocation, useParams} from "react-router";
 
-export default function RatingCard({ _ownerId, stars, review }) {
-    const { name, _createdOn } = useFetch(`http://localhost:3030/jsonstore/users/${_ownerId}`, {});
+export default function RatingCard({_id, stars, review, _createdOn, author}) {
+    const location = useLocation();
+    const {productId} = useParams();
 
     return (
-        <article>
-            <div className="flex items-center mb-4">
-                <div className="w-11 h-auto">
-                    <UserIcon />
+        <article className="flex">
+            <div className="grow">
+                <div className="flex items-center mb-4">
+                    <div className="w-11 h-auto">
+                        <UserIcon />
+                    </div>
+                    <div className="font-medium text-heading">
+                        <p>
+                            {author.email}
+                            <time
+                                dateTime={author._createdOn}
+                                className="block text-sm text-body"
+                            >
+                                Joined on {formatDate(author._createdOn)}
+                            </time>
+                        </p>
+                    </div>
                 </div>
-                <div className="font-medium text-heading">
-                    <p>
-                        {name}
-                        <time dateTime={_createdOn} className="block text-sm text-body">
-                            {formatJoinDate(_createdOn)}
-                        </time>
-                    </p>
+                <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
+                    <StarRating rating={stars} />
                 </div>
+                <p className="mb-2 text-body">{review}</p>
+                <p className="text-sm italic">
+                    Reviewed on {formatDate(_createdOn)}
+                </p>
             </div>
-            <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
-                <StarRating rating={stars} />
+            <div>
+                <Link
+                    state={{from: location}}
+                    to={`/products-catalog/${productId}/edit-review/${_id}`}
+                    className="cursor-pointer px-4 py-2 rounded-md  bg-amber-500 hover:bg-amber-600 text-white font-semibold nded-lg transition-colors duration-200"
+                >
+                    Edit
+                </Link>
             </div>
-            <p className="mb-2 text-body">{review}</p>
         </article>
     );
 }
