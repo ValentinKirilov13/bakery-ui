@@ -20,5 +20,5 @@ export default function useForm(initialValues, callback) {
         await callback(values);
     };
 
-    return {registerInput, formAction};
+    return {values, registerInput, formAction, changeHandler};
 }

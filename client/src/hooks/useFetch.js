@@ -1,21 +1,21 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import useRequest from "./useRequest";
 
-export default function useFetch(url, initialState, map = (data) => data) {
+export default function useFetch(url, initialState) {
     const [data, setData] = useState(initialState);
-    const mapFn = useCallback(map, []);
+    const {request} = useRequest();
 
     useEffect(() => {
         const abortController = new AbortController();
 
-        fetch(url, {signal: abortController.signal})
-            .then((response) => response.json())
-            .then((result) => setData(mapFn(result)))
+        request(url)
+            .then((result) => setData(result))
             .catch();
 
         return () => {
             abortController.abort();
         };
-    }, [url, mapFn]);
+    }, [url]);
 
     return data;
 }
