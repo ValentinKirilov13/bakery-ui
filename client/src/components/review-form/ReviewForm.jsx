@@ -35,7 +35,7 @@ export default function ReviewForm({initialState, isEdit}) {
                 if (!validate(values)) return;
 
                 await request(
-                    `/data/reviews/${isEdit && values._id}`,
+                    `/data/reviews${isEdit ? `/${values._id}` : ""}`,
                     isEdit ? "PUT" : "POST",
                     values
                 );

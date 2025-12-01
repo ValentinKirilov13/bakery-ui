@@ -7,5 +7,7 @@ export default function EditReview() {
 
     const review = useFetch(`/data/reviews/${reviewId}`, {});
 
+    if (!review._id) return <div>Loading...</div>;
+
     return <ReviewForm initialState={review} isEdit />;
 }

@@ -3,7 +3,14 @@ import formatDate from "../../utils/formatDate";
 import StarRating from "./star-rating/StarRating";
 import {Link, useLocation, useParams} from "react-router";
 
-export default function RatingCard({_id, stars, review, _createdOn, author}) {
+export default function RatingCard({
+    _id,
+    title,
+    stars,
+    review,
+    _createdOn,
+    author,
+}) {
     const location = useLocation();
     const {productId} = useParams();
 
@@ -29,6 +36,7 @@ export default function RatingCard({_id, stars, review, _createdOn, author}) {
                 <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
                     <StarRating rating={stars} />
                 </div>
+                <p className="font-medium">{title}</p>
                 <p className="mb-2 text-body">{review}</p>
                 <p className="text-sm italic">
                     Reviewed on {formatDate(_createdOn)}
