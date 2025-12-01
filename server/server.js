@@ -1500,17 +1500,41 @@
                 email: "peter@abv.bg",
                 hashedPassword:
                     "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
+                _createdOn: 1715707950000,
             },
             "847ec027-f659-4086-8032-5173e2f9c93a": {
                 email: "john@abv.bg",
                 hashedPassword:
                     "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
+                _createdOn: 1715707950000,
             },
         },
         sessions: {},
     };
     var seedData = {
-        reviews: {},
+        reviews: {
+            "f1a2b3c4-d5e6-7f89-0123-456789abcdef": {
+                stars: 5,
+                review: "Absolutely loved it! Perfect texture and chocolate filling is smooth and rich.",
+                _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
+                _productId: "1a2b3c4d-1111-2222-3333-444455556666",
+                _createdOn: 1715707950000,
+            },
+            "a2b3c4d5-e6f7-8901-2345-6789abcdef01": {
+                stars: 4,
+                review: "Very tasty croissant, but slightly smaller than expected. Still highly recommend!",
+                _ownerId: "35c62d76-8152-4626-8712-eeb96381bea8",
+                _productId: "1a2b3c4d-1111-2222-3333-444455556666",
+                _createdOn: 1715707950000,
+            },
+            "b3c4d5e6-f789-0123-4567-89abcdef0123": {
+                stars: 3,
+                review: "Good croissant, but the chocolate could be a bit richer.",
+                _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
+                _productId: "2b3c4d5e-2222-3333-4444-555566667777",
+                _createdOn: 1715707950000,
+            },
+        },
         products: {
             "1a2b3c4d-1111-2222-3333-444455556666": {
                 _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
