@@ -1,7 +1,11 @@
+import useUserContext from "./useUserContext";
+
 const baseUrl = "http://localhost:3030";
 
 export default function useRequest() {
-    const request = async (url, method, data) => {
+    const {isAuthenticated, user} = useUserContext();
+
+    const request = async (url, method, data, config = {accessToken: null}) => {
         let options = {};
 
         if (method) options.method = method;
@@ -9,9 +13,15 @@ export default function useRequest() {
         if (data) {
             options.headers = {
                 "content-type": "application/json",
-                "X-Authorization": "{token}",
             };
             options.body = JSON.stringify(data);
+        }
+
+        if (config.accessToken || isAuthenticated) {
+            options.headers = {
+                ...options.headers,
+                "X-Authorization": config.accessToken || user.accessToken,
+            };
         }
 
         const response = await fetch(`${baseUrl}${url}`, options);

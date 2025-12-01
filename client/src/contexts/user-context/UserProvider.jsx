@@ -15,11 +15,28 @@ export default function UserProvider({children}) {
         setUser(result);
     };
 
-    const loginHandler = ({email, password}) => {};
-    const logoutHandler = () => {};
+    const loginHandler = async (email, password) => {
+        const result = await request("/users/login", "POST", {
+            email,
+            password,
+        });
+
+        setUser(result);
+    };
+
+    const logoutHandler = async () => {
+        await request("/users/logout", null, null, {
+            accessToken: user.accessToken,
+        });
+
+        setUser(null);
+    };
+
+    const isAuthenticated = !!user?.accessToken;
 
     const contextValues = {
         user,
+        isAuthenticated,
         registerHandler,
         loginHandler,
         logoutHandler,
