@@ -11,11 +11,12 @@ import ProductsCatalog from "./components/products-catalog/ProductsCatalog";
 import ProductDetails from "./components/product-details/ProductDetails";
 import WriteReview from "./components/write-review/WriteReview";
 import EditReview from "./components/edit-review/EditReview";
+import Profile from "./components/profile/Profile";
 
 export default function App() {
     return (
         <>
-            <div className="min-h-screen flex flex-col bg-white">
+            <div className="min-h-screen flex flex-col">
                 <Routes>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Home />} />
@@ -36,6 +37,8 @@ export default function App() {
                         </Route>
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/about-us" element={<AboutUs />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/shopping-bag" element={<Profile />} />
                     </Route>
                     <Route element={<FullScreenLayout />}>
                         <Route path="/login" element={<Login />} />
