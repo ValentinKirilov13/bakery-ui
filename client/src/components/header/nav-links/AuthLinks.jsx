@@ -1,4 +1,4 @@
-import {ShoppingBagIcon, UserIcon} from "@heroicons/react/24/outline";
+import {ShoppingCartIcon, UserIcon} from "@heroicons/react/24/outline";
 import {Link, useLocation} from "react-router";
 import useUserContext from "../../../hooks/useUserContext";
 
@@ -30,10 +30,10 @@ export default function AuthLinks() {
                     <>
                         <div className="w-6 h-auto">
                             <Link
-                                to="/shopping-bag"
+                                to="/shopping-cart"
                                 className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold  hover:bg-amber-100"
                             >
-                                <ShoppingBagIcon />
+                                <ShoppingCartIcon />
                             </Link>
                         </div>
 

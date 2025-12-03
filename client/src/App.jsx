@@ -12,6 +12,7 @@ import ProductDetails from "./components/product-details/ProductDetails";
 import WriteReview from "./components/write-review/WriteReview";
 import EditReview from "./components/edit-review/EditReview";
 import Profile from "./components/profile/Profile";
+import Cart from "./components/cart/Cart";
 
 export default function App() {
     return (
@@ -38,7 +39,7 @@ export default function App() {
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/about-us" element={<AboutUs />} />
                         <Route path="/profile" element={<Profile />} />
-                        <Route path="/shopping-bag" element={<Profile />} />
+                        <Route path="/shopping-cart" element={<Cart />} />
                     </Route>
                     <Route element={<FullScreenLayout />}>
                         <Route path="/login" element={<Login />} />

@@ -8,7 +8,7 @@ export default function Home() {
     );
 
     return (
-        <div className="">
+        <>
             <div className="max-w-6xl mx-auto px-6 pt-20 pb-10 text-center">
                 <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
                     Welcome to Sladotvornica
@@ -23,6 +23,6 @@ export default function Home() {
                     <ProductCard {...product} key={product._id} />
                 ))}
             </div>
-        </div>
+        </>
     );
 }
