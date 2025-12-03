@@ -14,7 +14,18 @@ export default function UserProvider({children}) {
             password,
         });
 
-        setUser(result);
+        const cartResult = await request(
+            `/data/carts`,
+            "POST",
+            {
+                products: [],
+            },
+            {
+                accessToken: result.accessToken,
+            }
+        );
+
+        setUser({...result, _cartId: cartResult._id});
     };
 
     const loginHandler = async (email, password) => {

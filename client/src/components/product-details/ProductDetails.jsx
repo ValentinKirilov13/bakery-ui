@@ -2,6 +2,9 @@ import useFetch from "../../hooks/useFetch";
 import {useParams} from "react-router";
 import ReviewsSection from "../reviews-section/ReviewsSection";
 import ProductImages from "./product-images/ProductImages";
+import useForm from "../../hooks/useForm";
+import useRequest from "../../hooks/useRequest";
+import useUserContext from "../../hooks/useUserContext";
 
 export default function ProductDetails() {
     const {productId} = useParams();
@@ -10,6 +13,49 @@ export default function ProductDetails() {
         where: `_productId="${productId}"`,
         load: `author=_ownerId:users`,
     });
+    const {request} = useRequest();
+    const {isAuthenticated, user} = useUserContext();
+
+    const {registerInput, formAction} = useForm(
+        {
+            quantity: 1,
+        },
+        async ({quantity}) => {
+            try {
+                const cartParams = new URLSearchParams({
+                    where: `_ownerId="${user._id}"`,
+                });
+                const carts = await request(
+                    `/data/carts?${cartParams.toString()}`
+                );
+                const currentCart = carts[0];
+
+                //if (!validate(values)) return;
+                const newProductToAdd = {
+                    _productId: productId,
+                    quantity: Number(quantity),
+                };
+
+                const existingProduct = currentCart.products.find(
+                    (p) => p._productId === productId
+                );
+
+                if (existingProduct) {
+                    existingProduct.quantity += newProductToAdd.quantity;
+                } else {
+                    currentCart.products.push(newProductToAdd);
+                }
+
+                await request(
+                    `/data/carts/${currentCart._id}`,
+                    "PUT",
+                    currentCart
+                );
+            } catch (error) {
+                alert(error);
+            }
+        }
+    );
 
     return (
         <div className="pt-6">
@@ -28,7 +74,7 @@ export default function ProductDetails() {
                         €{product.price}
                     </p>
 
-                    <form className="mt-10">
+                    <form action={formAction} className="mt-10">
                         <label
                             htmlFor="number-input"
                             className="block mb-2.5 text-sm font-medium text-heading"
@@ -38,10 +84,10 @@ export default function ProductDetails() {
                         <input
                             type="number"
                             id="number-input"
+                            {...registerInput("quantity")}
                             aria-describedby="helper-text-explanation"
                             className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
-                            placeholder="1"
-                            min={0}
+                            min={1}
                             required
                         />
 
@@ -49,7 +95,7 @@ export default function ProductDetails() {
                             type="submit"
                             className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                         >
-                            Add to bag
+                            Add to cart
                         </button>
                     </form>
                 </div>
