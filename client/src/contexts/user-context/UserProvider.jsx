@@ -1,10 +1,10 @@
-import {useState} from "react";
 import UserContext from "./UserContext";
 import useRequest from "../../hooks/useRequest";
 import {useNavigate} from "react-router";
+import usePersistedState from "../../hooks/usePersistedState";
 
 export default function UserProvider({children}) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = usePersistedState(null, "auth");
     const navigate = useNavigate();
     const {request} = useRequest();
 

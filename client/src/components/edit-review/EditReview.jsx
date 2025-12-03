@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 export default function EditReview() {
     const {reviewId} = useParams();
 
-    const review = useFetch(`/data/reviews/${reviewId}`, {});
+    const [review] = useFetch(`/data/reviews/${reviewId}`, {});
 
     if (!review._id) return <div>Loading...</div>;
 
