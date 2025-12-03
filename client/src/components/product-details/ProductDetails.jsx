@@ -5,7 +5,11 @@ import ProductImages from "./product-images/ProductImages";
 
 export default function ProductDetails() {
     const {productId} = useParams();
-    const product = useFetch(`/data/products/${productId}`, {});
+    const [product] = useFetch(`/data/products/${productId}`, {});
+    const reviewsParams = new URLSearchParams({
+        where: `_productId="${productId}"`,
+        load: `author=_ownerId:users`,
+    });
 
     return (
         <div className="pt-6">
@@ -129,7 +133,12 @@ export default function ProductDetails() {
             </div>
 
             <div className="mx-auto max-w-2xl px-4 pb-16 lg:max-w-7xl">
-                <ReviewsSection />
+                <ReviewsSection
+                    header={"Customer Reviews"}
+                    haveWrite
+                    emptyReviews={"Be the first to write a review!"}
+                    filters={reviewsParams}
+                />
             </div>
         </div>
     );

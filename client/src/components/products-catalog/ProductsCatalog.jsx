@@ -2,12 +2,12 @@ import useFetch from "../../hooks/useFetch";
 import ProductCard from "../product-card/ProductCard";
 
 export default function ProductsCatalog() {
-    const products = useFetch("/data/products", []);
+    const [products] = useFetch("/data/products", []);
 
     return (
         <div>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex items-baseline justify-between border-b border-gray-200 pt-10 pb-6">
+                <div className="flex items-baseline justify-between  border-gray-200 pt-10 pb-6">
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900">
                         Products
                     </h1>
