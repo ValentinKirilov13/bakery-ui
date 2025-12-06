@@ -19,9 +19,6 @@ export default function Profile() {
             <section aria-labelledby="products-heading" className="px-6">
                 <div className="space-y-4 text-lg">
                     <p>
-                        <span className="font-semibold">Name:</span> John Doe
-                    </p>
-                    <p>
                         <span className="font-semibold">Email: </span>
                         {user.email}
                     </p>

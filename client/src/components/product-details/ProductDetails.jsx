@@ -1,10 +1,14 @@
 import useFetch from "../../hooks/useFetch";
-import {useParams} from "react-router";
+import {useLocation, useNavigate, useParams} from "react-router";
 import ReviewsSection from "../reviews-section/ReviewsSection";
 import ProductImages from "./product-images/ProductImages";
 import useForm from "../../hooks/useForm";
 import useRequest from "../../hooks/useRequest";
 import useUserContext from "../../hooks/useUserContext";
+import ConfirmModal from "../confirm-modal/ConfirmModal";
+import {useState} from "react";
+import AddToCardAnimation from "../add-to-card-animation/AddToCardAnimation";
+import {CheckCircleIcon} from "@heroicons/react/20/solid";
 
 export default function ProductDetails() {
     const {productId} = useParams();
@@ -15,6 +19,32 @@ export default function ProductDetails() {
     });
     const {request} = useRequest();
     const {isAuthenticated, user} = useUserContext();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [showModal, setShowModal] = useState(false);
+    const [animationTrigger, setAnimationTrigger] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const closeModalHandler = () => {
+        setShowModal(false);
+    };
+
+    const openModalHandler = () => {
+        setShowModal(true);
+    };
+
+    const confirmModalHandler = () => {
+        navigate("/login", {state: {from: location}});
+        closeModalHandler();
+    };
+
+    const successAddHandler = () => {
+        setAnimationTrigger(true);
+        setTimeout(() => setAnimationTrigger(false), 3000);
+
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 3000);
+    };
 
     const {registerInput, formAction} = useForm(
         {
@@ -22,8 +52,13 @@ export default function ProductDetails() {
         },
         async ({quantity}) => {
             try {
+                if (!isAuthenticated) {
+                    openModalHandler();
+                    return;
+                }
+
                 const cartParams = new URLSearchParams({
-                    where: `_ownerId="${user._id}"`,
+                    where: `_ownerId="${user?._id}"`,
                 });
                 const carts = await request(
                     `/data/carts?${cartParams.toString()}`
@@ -47,10 +82,12 @@ export default function ProductDetails() {
                 }
 
                 await request(
-                    `/data/carts/${currentCart._id}`,
+                    `/data/carts/${currentCart?._id}`,
                     "PUT",
                     currentCart
                 );
+
+                successAddHandler();
             } catch (error) {
                 alert(error);
             }
@@ -92,10 +129,26 @@ export default function ProductDetails() {
                         />
 
                         <button
+                            disabled={success}
                             type="submit"
-                            className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+                            className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center relative overflow-hidden"
                         >
-                            Add to cart
+                            <span
+                                className={`transition-opacity duration-300 ${
+                                    success ? "opacity-0" : "opacity-100"
+                                }`}
+                            >
+                                Add to cart
+                            </span>
+                            <span
+                                className={`absolute flex items-center justify-center transition-all duration-300 ${
+                                    success
+                                        ? "opacity-100 scale-100 animate-check"
+                                        : "opacity-0 scale-0"
+                                }`}
+                            >
+                                <CheckCircleIcon className="w-6 h-6 text-white" />
+                            </span>
                         </button>
                     </form>
                 </div>
@@ -186,6 +239,17 @@ export default function ProductDetails() {
                     filters={reviewsParams}
                 />
             </div>
+
+            <ConfirmModal
+                open={showModal}
+                onClose={closeModalHandler}
+                message="You need to log in to purchase this item. Please sign in or create an account to continue."
+                onConfirm={confirmModalHandler}
+                action="NAVIGATE"
+                confirmText="Login"
+                title="Please Log In"
+            />
+            {animationTrigger && <AddToCardAnimation />}
         </div>
     );
 }

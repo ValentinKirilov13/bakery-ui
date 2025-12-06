@@ -34,7 +34,14 @@ export default function UserProvider({children}) {
             password,
         });
 
-        setUser(result);
+        const params = new URLSearchParams({
+            where: `_ownerId="${result._id}"`,
+            pageSize: "1",
+        });
+
+        const cartResult = await request(`/data/carts?${params.toString()}`);
+
+        setUser({...result, _cartId: cartResult?.[0]?._id});
     };
 
     const logoutHandler = async () => {
@@ -42,8 +49,8 @@ export default function UserProvider({children}) {
             accessToken: user.accessToken,
         });
 
-        setUser(null);
         navigate("/");
+        setUser(null);
     };
 
     const isAuthenticated = !!user?.accessToken;

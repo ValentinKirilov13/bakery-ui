@@ -3,7 +3,7 @@ import useUserContext from "../../hooks/useUserContext";
 
 export default function Cart() {
     const {user} = useUserContext();
-    const [cart] = useFetch(`/data/carts/${user._cartId}`, {});
+    const [cart] = useFetch(`/data/carts/${user?._cartId}`, {});
     const productIds = cart?.products?.map((p) => p._productId) || [];
     const [products] = useFetch(
         `/data/products?where=_id%20IN%20("${productIds.join('","')}")`,
@@ -39,12 +39,16 @@ export default function Cart() {
                                 {product.product?.name}
                             </h2>
                             <p className="text-gray-500 text-sm">
-                                Quantity: {product?.quantity}
+                                Quantity: {product?.quantity} x{" "}
+                                {product?.product?.price?.toFixed(2)}
                             </p>
                         </div>
                     </div>
                     <span className="text-lg font-bold">
-                        €{product.product?.price?.toFixed(2)}
+                        €
+                        {(product?.quantity * product?.product?.price)?.toFixed(
+                            2
+                        )}
                     </span>
                 </div>
             ))}
@@ -54,7 +58,7 @@ export default function Cart() {
                 <span>€{totalPrice?.toFixed(2)}</span>
             </div>
 
-            <button className="mt-10 w-full text-xl bg-amber-500 text-white py-4 rounded-2xl shadow-xl hover:bg-amber-600 transition">
+            <button className="cursor-pointer mt-10 w-full text-xl bg-amber-500 text-white py-4 rounded-2xl shadow-xl hover:bg-amber-600 transition">
                 Proceed to Checkout
             </button>
         </div>
