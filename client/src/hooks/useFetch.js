@@ -10,7 +10,7 @@ export default function useFetch(url, initialState) {
 
         request(url)
             .then((result) => setData(result))
-            .catch();
+            .catch((err) => alert(err));
 
         return () => {
             abortController.abort();

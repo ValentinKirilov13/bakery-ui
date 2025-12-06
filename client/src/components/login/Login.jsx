@@ -16,7 +16,7 @@ export default function Login() {
             try {
                 await loginHandler(email, password);
 
-                navigate(from);
+                navigate(from, {replace: true});
             } catch (error) {
                 alert(error);
             }
@@ -92,6 +92,7 @@ export default function Login() {
                 <div className="mt-10 text-center text-sm/6 text-gray-400">
                     <span>Not a member?</span>
                     <Link
+                        state={state}
                         to="/register"
                         className="font-semibold text-amber-500 hover:text-amber-600 ml-2"
                     >

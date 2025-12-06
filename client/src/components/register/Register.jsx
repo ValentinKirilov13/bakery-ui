@@ -17,7 +17,7 @@ export default function Register() {
             try {
                 await registerHandler(email, password);
 
-                navigate(from);
+                navigate(from, {replace: true});
             } catch (error) {
                 alert(error);
             }
@@ -112,6 +112,7 @@ export default function Register() {
                 <div className="mt-10 text-center text-sm/6 text-gray-400">
                     <span>You already have an account?</span>
                     <Link
+                        state={state}
                         to="/login"
                         className="font-semibold text-amber-500 hover:text-amber-600 ml-2"
                     >
