@@ -11,7 +11,7 @@ export default function Home() {
         <>
             <div className="max-w-6xl mx-auto px-6 pt-20 pb-10 text-center">
                 <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
-                    Welcome to Sladotvornica
+                    Welcome to Sweetmaker
                 </h1>
                 <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                     Handcrafted artisan pastries baked fresh every morning.
