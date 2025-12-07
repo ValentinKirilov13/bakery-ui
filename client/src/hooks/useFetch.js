@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import useRequest from "./useRequest";
+import {toast} from "react-toastify";
 
 export default function useFetch(url, initialState) {
     const [data, setData] = useState(initialState);
@@ -8,14 +9,17 @@ export default function useFetch(url, initialState) {
     useEffect(() => {
         const abortController = new AbortController();
 
-        request(url)
+        request(url, null, null, {signal: abortController.signal})
             .then((result) => setData(result))
-            .catch((err) => alert(err));
+            .catch((err) => {
+                if (err.name === "AbortError") return;
+                toast.error(err?.message || "Something went wrong");
+            });
 
         return () => {
             abortController.abort();
         };
-    }, [url]);
+    }, [url, request]);
 
     return [data, setData];
 }
