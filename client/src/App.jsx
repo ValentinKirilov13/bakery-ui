@@ -14,10 +14,12 @@ import Profile from "./components/profile/Profile";
 import Cart from "./components/cart/Cart";
 import GuestRouteGuard from "./components/guest-route-guard/GuestRouteGuard";
 import UserRouteGuard from "./components/user-route-guard/UserRouteGuard";
+import {ToastContainer} from "react-toastify";
 
 export default function App() {
     return (
         <>
+            <ToastContainer position="top-right" />
             <div className="min-h-screen flex flex-col">
                 <Routes>
                     <Route element={<MainLayout />}>

@@ -1,6 +1,7 @@
 import {Link, useLocation, useNavigate} from "react-router";
 import useForm from "../../hooks/useForm";
 import useUserContext from "../../hooks/useUserContext";
+import {toast} from "react-toastify";
 
 export default function Login() {
     const {loginHandler} = useUserContext();
@@ -15,10 +16,10 @@ export default function Login() {
         async ({email, password}) => {
             try {
                 await loginHandler(email, password);
-
+                toast.success("Welcome back!");
                 navigate(from, {replace: true});
-            } catch (error) {
-                alert(error);
+            } catch (err) {
+                toast.error(err?.message);
             }
         },
         ({email, password}) => {

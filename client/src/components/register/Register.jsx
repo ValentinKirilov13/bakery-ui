@@ -1,13 +1,14 @@
 import {Link, useLocation, useNavigate} from "react-router";
 import useForm from "../../hooks/useForm";
 import useUserContext from "../../hooks/useUserContext";
+import {toast} from "react-toastify";
 
 export default function Register() {
     const {registerHandler} = useUserContext();
     const navigate = useNavigate();
     const {state} = useLocation();
     const from = state?.from?.pathname || "/";
-    const {registerInput, formAction} = useForm(
+    const {errors, touched, registerInput, formAction} = useForm(
         {
             email: "",
             password: "",
@@ -16,11 +17,34 @@ export default function Register() {
         async ({email, password}) => {
             try {
                 await registerHandler(email, password);
-
+                toast.success("Registration successful! Welcome!");
                 navigate(from, {replace: true});
-            } catch (error) {
-                alert(error);
+            } catch (err) {
+                toast.error(err?.message);
             }
+        },
+        ({email, password, confirmPassword}) => {
+            const newErrors = {};
+
+            if (!email?.trim()) {
+                newErrors.email = "Email is required.";
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                newErrors.email = "Enter a valid email address.";
+            }
+
+            if (!password?.trim()) {
+                newErrors.password = "Password is required.";
+            } else if (password.length < 6) {
+                newErrors.password = "Password must be at least 6 characters.";
+            }
+
+            if (!confirmPassword?.trim()) {
+                newErrors.confirmPassword = "Please confirm your password.";
+            } else if (confirmPassword !== password) {
+                newErrors.confirmPassword = "Passwords do not match.";
+            }
+
+            return newErrors;
         }
     );
 
@@ -51,10 +75,14 @@ export default function Register() {
                                 id="email"
                                 {...registerInput("email")}
                                 type="email"
-                                required
                                 autoComplete="email"
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
+                            {touched.email && errors.email && (
+                                <p className="text-red-500 text-sm font-semibold">
+                                    {errors.email}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -72,10 +100,14 @@ export default function Register() {
                                 id="password"
                                 {...registerInput("password")}
                                 type="password"
-                                required
                                 autoComplete="current-password"
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
+                            {touched.password && errors.password && (
+                                <p className="text-red-500 text-sm font-semibold">
+                                    {errors.password}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -93,10 +125,15 @@ export default function Register() {
                                 id="confirm-password"
                                 {...registerInput("confirmPassword")}
                                 type="password"
-                                required
                                 autoComplete="current-password"
                                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                             />
+                            {touched.confirmPassword &&
+                                errors.confirmPassword && (
+                                    <p className="text-red-500 text-sm font-semibold">
+                                        {errors.confirmPassword}
+                                    </p>
+                                )}
                         </div>
                     </div>
 

@@ -26,7 +26,20 @@ export default function useRequest() {
 
         const response = await fetch(`${baseUrl}${url}`, options);
 
-        if (!response.ok) throw response.statusText;
+        if (!response.ok) {
+            let errorData = {};
+
+            try {
+                errorData = await response.json();
+            } catch {
+                errorData.message = "Unknown error";
+            }
+
+            throw {
+                code: errorData.code || response.status,
+                message: errorData.message || "Something went wrong",
+            };
+        }
 
         if (response.status === 204) return null;
 
