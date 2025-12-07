@@ -9,6 +9,7 @@ import ConfirmModal from "../confirm-modal/ConfirmModal";
 import {useState} from "react";
 import AddToCardAnimation from "../add-to-card-animation/AddToCardAnimation";
 import {CheckCircleIcon} from "@heroicons/react/20/solid";
+import {toast} from "react-toastify";
 
 export default function ProductDetails() {
     const {productId} = useParams();
@@ -46,7 +47,7 @@ export default function ProductDetails() {
         setTimeout(() => setSuccess(false), 3000);
     };
 
-    const {registerInput, formAction} = useForm(
+    const {errors, touched, registerInput, formAction} = useForm(
         {
             quantity: 1,
         },
@@ -65,7 +66,6 @@ export default function ProductDetails() {
                 );
                 const currentCart = carts[0];
 
-                //if (!validate(values)) return;
                 const newProductToAdd = {
                     _productId: productId,
                     quantity: Number(quantity),
@@ -87,10 +87,22 @@ export default function ProductDetails() {
                     currentCart
                 );
 
+                toast.success(`${product.name} added to cart!`);
                 successAddHandler();
-            } catch (error) {
-                alert(error);
+            } catch (err) {
+                toast.error(err?.message);
             }
+        },
+        ({quantity}) => {
+            const newErrors = {};
+
+            if (quantity == null) {
+                newErrors.quantity = "Quantity is required.";
+            } else if (quantity < 1) {
+                newErrors.quantity = "Quantity must be at least 1.";
+            }
+
+            return newErrors;
         }
     );
 
@@ -108,7 +120,7 @@ export default function ProductDetails() {
                 <div className="mt-4 lg:row-span-3 lg:mt-0">
                     <h2 className="sr-only">Product information</h2>
                     <p className="text-3xl tracking-tight text-gray-900">
-                        €{product.price}
+                        €{product.price?.toFixed(2)}
                     </p>
 
                     <form action={formAction} className="mt-10">
@@ -124,9 +136,12 @@ export default function ProductDetails() {
                             {...registerInput("quantity")}
                             aria-describedby="helper-text-explanation"
                             className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
-                            min={1}
-                            required
                         />
+                        {touched.quantity && errors.quantity && (
+                            <p className="text-red-500 text-sm font-semibold">
+                                {errors.quantity}
+                            </p>
+                        )}
 
                         <button
                             disabled={success}
@@ -231,7 +246,10 @@ export default function ProductDetails() {
                 </div>
             </div>
 
-            <div className="mx-auto max-w-2xl px-4 pb-16 lg:max-w-7xl">
+            <div
+                id="reviews-section"
+                className="mx-auto max-w-2xl px-4 pb-16 lg:max-w-7xl"
+            >
                 <ReviewsSection
                     header={"Customer Reviews"}
                     haveWrite
