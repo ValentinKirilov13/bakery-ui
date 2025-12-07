@@ -3,6 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import RatingCard from "../rating-card/RatingCard";
 import useUserContext from "../../hooks/useUserContext";
 import useRequest from "../../hooks/useRequest";
+import {toast} from "react-toastify";
 
 export default function ReviewsSection({
     header,
@@ -27,8 +28,8 @@ export default function ReviewsSection({
             setReviews((state) =>
                 state.filter((review) => review._id !== reviewId)
             );
-        } catch (error) {
-            alert(error);
+        } catch (err) {
+            toast.error(err?.message);
         }
     };
 
