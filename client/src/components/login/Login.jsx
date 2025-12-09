@@ -3,21 +3,14 @@ import useForm from "../../hooks/useForm";
 import useUserContext from "../../hooks/useUserContext";
 import {toast} from "react-toastify";
 import Logo from "../logo/Logo";
-import Spinner from "../page-spinner/spinner/Spinner";
+import SubmitButton from "../submit-button/SubmitButton";
 
 export default function Login() {
     const {loginHandler} = useUserContext();
     const navigate = useNavigate();
     const {state} = useLocation();
     const from = state?.from?.pathname || "/";
-    const {
-        errors,
-        touched,
-        loading,
-        submittingHandler,
-        registerInput,
-        formAction,
-    } = useForm(
+    const {errors, touched, registerInput, formAction} = useForm(
         {
             email: "",
             password: "",
@@ -106,13 +99,9 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <button
-                            type="submit"
-                            onClick={submittingHandler}
-                            className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center relative overflow-hidden disabled"
-                        >
-                            {loading ? <Spinner /> : "Sign in"}
-                        </button>
+                        <SubmitButton className="px-2 py-2">
+                            Sign in
+                        </SubmitButton>
                     </div>
                 </form>
 

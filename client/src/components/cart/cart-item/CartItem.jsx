@@ -10,6 +10,7 @@ import {
     TrashIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
+import SubmitButton from "../../submit-button/SubmitButton";
 
 export default function CartItem({
     _productId,
@@ -31,14 +32,7 @@ export default function CartItem({
         }
     }, [product, quantity, onTotalPriceSet]);
 
-    const {
-        registerInput,
-        formAction,
-        loading: quantityLoading,
-        touched,
-        errors,
-        submittingHandler,
-    } = useForm(
+    const {registerInput, formAction, touched, errors} = useForm(
         {productId: _productId, quantity},
         async ({productId, quantity}) => {
             await onUpdateQuantity(productId, quantity);
@@ -95,26 +89,20 @@ export default function CartItem({
                                     className="flex gap-3 items-center"
                                 >
                                     <input
-                                        disabled={quantityLoading}
                                         type="number"
                                         id="number-input"
                                         {...registerInput("quantity")}
                                         aria-describedby="helper-text-explanation"
                                         className="w-20 rounded-md bg-white/5 px-3 py-1.5 text-base text-amber-900 outline-1 -outline-offset-1 outline-amber-900 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-500 sm:text-sm/6"
                                     />
-
-                                    <button
-                                        type="submit"
-                                        onClick={submittingHandler}
-                                        className="bg-amber-500 cursor-pointer  items-center px-2 py-1 rounded-md text-white  hover:bg-amber-600 transition"
-                                    >
+                                    <SubmitButton className="px-2 py-1">
                                         <CheckIcon className="w-4 h-5" />
-                                    </button>
+                                    </SubmitButton>
                                 </form>
 
                                 <button
                                     onClick={() => setIsEditing(false)}
-                                    className="bg-red-500 cursor-pointer flex items-center gap-1 px-2 py-1 rounded-md text-white hover:bg-red-700 transition"
+                                    className="rounded-xl bg-red-500 cursor-pointer flex items-center gap-1 px-2 py-1 text-white hover:bg-red-700 transition"
                                 >
                                     <XMarkIcon className="w-4 h-5" />
                                 </button>
@@ -139,7 +127,7 @@ export default function CartItem({
                         }}
                         className={`${
                             deleteLoading ? "" : "bg-red-500 hover:bg-red-700"
-                        } cursor-pointer flex items-center gap-1 px-2 py-1 rounded-md text-white transition`}
+                        } cursor-pointer flex items-center gap-1 px-2 py-1 rounded-xl text-white transition`}
                     >
                         {deleteLoading ? (
                             <Spinner />
@@ -150,11 +138,7 @@ export default function CartItem({
                 </div>
 
                 <div className="flex items-center justify-center">
-                    {quantityLoading ? (
-                        <Spinner />
-                    ) : (
-                        `€${(quantity * product.price)?.toFixed(2)}`
-                    )}
+                    €{(quantity * product.price)?.toFixed(2)}
                 </div>
             </div>
         </div>

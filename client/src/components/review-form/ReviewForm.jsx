@@ -3,7 +3,7 @@ import useForm from "../../hooks/useForm";
 import useRequest from "../../hooks/useRequest";
 import {useLocation, useNavigate} from "react-router";
 import {toast} from "react-toastify";
-import Spinner from "../page-spinner/spinner/Spinner";
+import SubmitButton from "../submit-button/SubmitButton";
 
 export default function ReviewForm({initialState, isEdit}) {
     const [hover, setHover] = useState(null);
@@ -12,53 +12,47 @@ export default function ReviewForm({initialState, isEdit}) {
     const {state} = useLocation();
     const from = state?.from?.pathname || "/";
 
-    const {
-        values,
-        errors,
-        touched,
-        loading,
-        registerInput,
-        formAction,
-        changeHandler,
-        submittingHandler,
-    } = useForm(
-        initialState,
-        async (values) => {
-            try {
-                await request(
-                    `/data/reviews${isEdit ? `/${values._id}` : ""}`,
-                    isEdit ? "PUT" : "POST",
-                    values
-                );
+    const {values, errors, touched, registerInput, formAction, changeHandler} =
+        useForm(
+            initialState,
+            async (values) => {
+                try {
+                    await request(
+                        `/data/reviews${isEdit ? `/${values._id}` : ""}`,
+                        isEdit ? "PUT" : "POST",
+                        values
+                    );
 
-                toast.success("Your review has been submitted successfully!");
+                    toast.success(
+                        "Your review has been submitted successfully!"
+                    );
 
-                navigate({
-                    pathname: from,
-                    hash: "#reviews-section",
-                });
-            } catch (err) {
-                toast.error(err?.message);
+                    navigate({
+                        pathname: from,
+                        hash: "#reviews-section",
+                    });
+                } catch (err) {
+                    toast.error(err?.message);
+                }
+            },
+            ({title, review, stars}) => {
+                const newErrors = {};
+
+                if (stars < 1 || stars > 5) {
+                    newErrors.stars = "Please choose a rating between 1 and 5.";
+                }
+
+                if (!title?.trim()) {
+                    newErrors.title = "Please add a short title.";
+                }
+
+                if (!review?.trim() || review.trim().length < 20) {
+                    newErrors.review = `Review should be at least ${20} characters.`;
+                }
+
+                return newErrors;
             }
-        },
-        ({title, review, stars}) => {
-            const newErrors = {};
-
-            if (stars < 1 || stars > 5) {
-                newErrors.stars = "Please choose a rating between 1 and 5.";
-            }
-
-            if (!title?.trim()) {
-                newErrors.title = "Please add a short title.";
-            }
-
-            if (!review?.trim() || review.trim().length < 20) {
-                newErrors.review = `Review should be at least ${20} characters.`;
-            }
-
-            return newErrors;
-        }
-    );
+        );
 
     return (
         <div className="max-w-2xl mx-auto p-8 bg-white rounded-3xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] mt-20">
@@ -137,15 +131,8 @@ export default function ReviewForm({initialState, isEdit}) {
                         </p>
                     )}
                 </div>
-                <button
-                    onClick={submittingHandler}
-                    type="submit"
-                    className={`${
-                        loading ? "" : "bg-amber-500 hover:bg-amber-600"
-                    } cursor-pointer w-full inline-flex items-center justify-center px-6 py-3 rounded-xl  text-white font-semibold shadow-md transition disabled:opacity-60`}
-                >
-                    {loading ? <Spinner /> : "Submit Review"}
-                </button>
+
+                <SubmitButton className="px-6 py-3">Submit Review</SubmitButton>
             </form>
         </div>
     );

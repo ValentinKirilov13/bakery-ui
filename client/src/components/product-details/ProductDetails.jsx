@@ -11,7 +11,7 @@ import AddToCardAnimation from "../add-to-card-animation/AddToCardAnimation";
 import {CheckCircleIcon} from "@heroicons/react/20/solid";
 import {toast} from "react-toastify";
 import {PageSpinner} from "../page-spinner/PageSpinner";
-import Spinner from "../page-spinner/spinner/Spinner";
+import SubmitButton from "../submit-button/SubmitButton";
 
 export default function ProductDetails() {
     const {productId} = useParams();
@@ -52,14 +52,7 @@ export default function ProductDetails() {
         setTimeout(() => setSuccess(false), 3000);
     };
 
-    const {
-        errors,
-        touched,
-        loading: addToCartLoading,
-        registerInput,
-        formAction,
-        submittingHandler,
-    } = useForm(
+    const {errors, touched, registerInput, formAction} = useForm(
         {
             quantity: 1,
         },
@@ -156,22 +149,13 @@ export default function ProductDetails() {
                             </p>
                         )}
 
-                        <button
-                            type="submit"
-                            onClick={submittingHandler}
-                            disabled={success}
-                            className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center relative overflow-hidden disabled"
-                        >
+                        <SubmitButton className="mt-10 py-2 px-4">
                             <span
                                 className={`transition-opacity duration-300 ${
                                     success ? "opacity-0" : "opacity-100"
                                 }`}
                             >
-                                {addToCartLoading ? (
-                                    <Spinner />
-                                ) : (
-                                    " Add to cart"
-                                )}
+                                Add to cart
                             </span>
                             <span
                                 className={`absolute flex items-center justify-center transition-all duration-300 ${
@@ -182,7 +166,7 @@ export default function ProductDetails() {
                             >
                                 <CheckCircleIcon className="w-6 h-6 text-white" />
                             </span>
-                        </button>
+                        </SubmitButton>
                     </form>
                 </div>
 
