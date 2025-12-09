@@ -4,6 +4,7 @@ import RatingCard from "../rating-card/RatingCard";
 import useUserContext from "../../hooks/useUserContext";
 import useRequest from "../../hooks/useRequest";
 import {toast} from "react-toastify";
+import {PageSpinner} from "../page-spinner/PageSpinner";
 
 export default function ReviewsSection({
     header,
@@ -16,10 +17,11 @@ export default function ReviewsSection({
     const {productId} = useParams();
     const {isAuthenticated} = useUserContext();
     const {request} = useRequest();
-    const [reviews, setReviews] = useFetch(
-        `/data/reviews?${filters.toString()}`,
-        []
-    );
+    const {
+        data: reviews,
+        setData: setReviews,
+        loading,
+    } = useFetch(`/data/reviews?${filters.toString()}`, []);
 
     const deleteReviewHandler = async (reviewId) => {
         try {
@@ -61,13 +63,14 @@ export default function ReviewsSection({
                 ))}
             </div>
 
-            {reviews.length === 0 && (
+            {!loading && reviews.length === 0 && (
                 <div className="flex items-center justify-center py-3">
                     <p className="text-gray-500 text-center text-lg">
                         {emptyReviews}
                     </p>
                 </div>
             )}
+            {loading && <PageSpinner />}
         </section>
     );
 }

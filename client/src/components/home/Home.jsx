@@ -1,8 +1,9 @@
 import useFetch from "../../hooks/useFetch";
 import ProductCard from "../product-card/ProductCard";
+import {PageSpinner} from "../page-spinner/PageSpinner";
 
 export default function Home() {
-    const [products] = useFetch(
+    const {data: products, loading} = useFetch(
         "/data/products?sortBy=_createdOn%20desc&pageSize=3",
         []
     );
@@ -23,6 +24,7 @@ export default function Home() {
                     <ProductCard {...product} key={product._id} />
                 ))}
             </div>
+            {loading && <PageSpinner />}
         </>
     );
 }

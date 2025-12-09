@@ -27,7 +27,7 @@ export default function useRequest() {
             if (config.accessToken || isAuthenticated) {
                 options.headers = {
                     ...options.headers,
-                    "X-Authorization": config.accessToken || user.accessToken,
+                    "X-Authorization": config.accessToken || user?.accessToken,
                 };
             }
 
@@ -56,7 +56,7 @@ export default function useRequest() {
 
             return await response.json();
         },
-        [isAuthenticated, user.accessToken]
+        [isAuthenticated, user?.accessToken]
     );
 
     return {request};

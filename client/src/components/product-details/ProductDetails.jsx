@@ -10,10 +10,15 @@ import {useState} from "react";
 import AddToCardAnimation from "../add-to-card-animation/AddToCardAnimation";
 import {CheckCircleIcon} from "@heroicons/react/20/solid";
 import {toast} from "react-toastify";
+import {PageSpinner} from "../page-spinner/PageSpinner";
+import Spinner from "../page-spinner/spinner/Spinner";
 
 export default function ProductDetails() {
     const {productId} = useParams();
-    const [product] = useFetch(`/data/products/${productId}`, {});
+    const {data: product, loading} = useFetch(
+        `/data/products/${productId}`,
+        {}
+    );
     const reviewsParams = new URLSearchParams({
         where: `_productId="${productId}"`,
         load: `author=_ownerId:users`,
@@ -47,7 +52,14 @@ export default function ProductDetails() {
         setTimeout(() => setSuccess(false), 3000);
     };
 
-    const {errors, touched, registerInput, formAction} = useForm(
+    const {
+        errors,
+        touched,
+        loading: addToCartLoading,
+        registerInput,
+        formAction,
+        submittingHandler,
+    } = useForm(
         {
             quantity: 1,
         },
@@ -106,10 +118,11 @@ export default function ProductDetails() {
         }
     );
 
+    if (loading) return <PageSpinner />;
+
     return (
         <div className="pt-6">
             <ProductImages images={product.imageUrl} />
-
             <div className="mx-auto max-w-2xl px-4 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16">
                 <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -144,16 +157,21 @@ export default function ProductDetails() {
                         )}
 
                         <button
-                            disabled={success}
                             type="submit"
-                            className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center relative overflow-hidden"
+                            onClick={submittingHandler}
+                            disabled={success}
+                            className="cursor-pointer mt-10 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center relative overflow-hidden disabled"
                         >
                             <span
                                 className={`transition-opacity duration-300 ${
                                     success ? "opacity-0" : "opacity-100"
                                 }`}
                             >
-                                Add to cart
+                                {addToCartLoading ? (
+                                    <Spinner />
+                                ) : (
+                                    " Add to cart"
+                                )}
                             </span>
                             <span
                                 className={`absolute flex items-center justify-center transition-all duration-300 ${
@@ -245,7 +263,6 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
-
             <div
                 id="reviews-section"
                 className="mx-auto max-w-2xl px-4 pb-16 lg:max-w-7xl"

@@ -6,6 +6,7 @@ import useUserContext from "../../hooks/useUserContext";
 import ProductReference from "../product-reference/ProductReference";
 import {useState} from "react";
 import ConfirmModal from "../confirm-modal/ConfirmModal";
+import Spinner from "../page-spinner/spinner/Spinner";
 
 export default function RatingCard({
     _id,
@@ -21,6 +22,7 @@ export default function RatingCard({
     const location = useLocation();
     const {isAuthenticated, user} = useUserContext();
     const [showModal, setShowModal] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
 
     const closeModalHandler = () => {
         setShowModal(false);
@@ -31,6 +33,7 @@ export default function RatingCard({
     };
 
     const confirmModalHandler = () => {
+        setDeleteLoading(true);
         onDelete(_id);
         closeModalHandler();
     };
@@ -76,10 +79,13 @@ export default function RatingCard({
                     </Link>
 
                     <button
+                        disabled={deleteLoading}
                         onClick={openModalHandler}
-                        className="cursor-pointer px-3 py-2 text-sm rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition"
+                        className={`${
+                            deleteLoading ? "" : "bg-red-500 hover:bg-red-600"
+                        } cursor-pointer px-3 py-2 text-sm rounded-lg  text-white font-medium transition`}
                     >
-                        Delete
+                        {deleteLoading ? <Spinner /> : "Delete"}
                     </button>
                 </div>
             )}

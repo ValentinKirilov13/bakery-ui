@@ -1,11 +1,15 @@
 import useFetch from "../../hooks/useFetch";
 import useUserContext from "../../hooks/useUserContext";
+import {PageSpinner} from "../page-spinner/PageSpinner";
 
 export default function Cart() {
     const {user} = useUserContext();
-    const [cart] = useFetch(`/data/carts/${user?._cartId}`, {});
+    const {data: cart, loading: cartLoading} = useFetch(
+        `/data/carts/${user?._cartId}`,
+        {}
+    );
     const productIds = cart?.products?.map((p) => p._productId) || [];
-    const [products] = useFetch(
+    const {data: products, loading: productsLoading} = useFetch(
         `/data/products?where=_id%20IN%20("${productIds.join('","')}")`,
         []
     );
@@ -19,6 +23,8 @@ export default function Cart() {
         (sum, item) => sum + item.quantity * item.product?.price,
         0
     );
+
+    if (cartLoading || productsLoading) return <PageSpinner />;
 
     return (
         <div className=" max-w-4xl mx-auto bg-white p-8 rounded-3xl shadow-2xl mt-20 mb-20">

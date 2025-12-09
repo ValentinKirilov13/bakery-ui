@@ -4,6 +4,7 @@ export default function useForm(initialValues, callback, validateCallback) {
     const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const validateHandler = (e) => {
         const newErrors = validateCallback(values);
@@ -25,6 +26,10 @@ export default function useForm(initialValues, callback, validateCallback) {
         onBlur: validateHandler,
     });
 
+    const submittingHandler = () => {
+        setLoading(true);
+    };
+
     const formAction = async () => {
         const newErrors = validateCallback(values);
         setErrors(newErrors);
@@ -32,10 +37,24 @@ export default function useForm(initialValues, callback, validateCallback) {
             Object.keys(values).reduce((acc, k) => ({...acc, [k]: true}), {})
         );
 
-        if (Object.keys(newErrors).length > 0) return;
+        if (Object.keys(newErrors).length > 0) {
+            setLoading(false);
+            return;
+        }
 
         await callback(values);
+
+        setLoading(false);
     };
 
-    return {values, errors, touched, registerInput, formAction, changeHandler};
+    return {
+        values,
+        errors,
+        touched,
+        loading,
+        registerInput,
+        formAction,
+        changeHandler,
+        submittingHandler,
+    };
 }
