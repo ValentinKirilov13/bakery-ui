@@ -12,8 +12,8 @@ import WriteReview from "./components/write-review/WriteReview";
 import EditReview from "./components/edit-review/EditReview";
 import Profile from "./components/profile/Profile";
 import Cart from "./components/cart/Cart";
-import GuestRouteGuard from "./components/guest-route-guard/GuestRouteGuard";
-import UserRouteGuard from "./components/user-route-guard/UserRouteGuard";
+import ProtectedRouteGuard from "./components/protected-route-guard/ProtectedRouteGuard";
+import GuestOnlyRouteGuard from "./components/guest-only-route-guard/GuestOnlyRouteGuard";
 import {ToastContainer} from "react-toastify";
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
                                 path=":productId/details"
                                 element={<ProductDetails />}
                             />
-                            <Route element={<GuestRouteGuard />}>
+                            <Route element={<ProtectedRouteGuard />}>
                                 <Route
                                     path=":productId/write-review"
                                     element={<WriteReview />}
@@ -42,13 +42,13 @@ export default function App() {
                                 />
                             </Route>
                         </Route>
-                        <Route element={<GuestRouteGuard />}>
+                        <Route element={<ProtectedRouteGuard />}>
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/shopping-cart" element={<Cart />} />
                         </Route>
                     </Route>
                     <Route element={<FullScreenLayout />}>
-                        <Route element={<UserRouteGuard />}>
+                        <Route element={<GuestOnlyRouteGuard />}>
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
                         </Route>

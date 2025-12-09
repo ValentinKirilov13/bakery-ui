@@ -1,12 +1,12 @@
 import {Navigate, Outlet, useLocation} from "react-router";
 import useUserContext from "../../hooks/useUserContext";
 
-export default function UserRouteGuard() {
+export default function ProtectedRouteGuard() {
     const {isAuthenticated} = useUserContext();
-    const {state} = useLocation();
-    const from = state?.from?.pathname || "/";
+    const location = useLocation();
 
-    if (isAuthenticated) return <Navigate to={from} replace />;
+    if (!isAuthenticated)
+        return <Navigate to="/" state={{from: location}} replace />;
 
     return <Outlet />;
 }
