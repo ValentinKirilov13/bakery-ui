@@ -1,13 +1,41 @@
 import {ShoppingCartIcon, UserIcon} from "@heroicons/react/24/outline";
-import {Link, useLocation} from "react-router";
+import {Link, useLocation, useNavigate} from "react-router";
 import useUserContext from "../../../hooks/useUserContext";
 import {useState} from "react";
 import Spinner from "../../page-spinner/spinner/Spinner";
+import {toast} from "react-toastify";
 
 export default function AuthLinks({onClick}) {
     const {isAuthenticated, logoutHandler} = useUserContext();
     const location = useLocation();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            setLoading(true);
+            await logoutHandler();
+            navigate("/");
+        } catch (err) {
+            toast.error(err?.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const isActiveHandler = (desiredPath) => {
+        let isActive = false;
+
+        if (desiredPath === "/") {
+            isActive = location.pathname === "/";
+        } else {
+            isActive =
+                location.pathname === desiredPath ||
+                location.pathname.startsWith(desiredPath + "/");
+        }
+
+        return isActive;
+    };
 
     return (
         <>
@@ -37,7 +65,11 @@ export default function AuthLinks({onClick}) {
                             <Link
                                 onClick={onClick}
                                 to="/shopping-cart"
-                                className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold  hover:bg-amber-100"
+                                className={`${
+                                    isActiveHandler("/shopping-cart")
+                                        ? "bg-amber-100"
+                                        : "hover:bg-amber-100"
+                                } -mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold`}
                             >
                                 <ShoppingCartIcon />
                             </Link>
@@ -47,7 +79,11 @@ export default function AuthLinks({onClick}) {
                             <Link
                                 onClick={onClick}
                                 to="/profile"
-                                className="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold  hover:bg-amber-100"
+                                className={`${
+                                    isActiveHandler("/profile")
+                                        ? "bg-amber-100"
+                                        : "hover:bg-amber-100"
+                                } -mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold`}
                             >
                                 <UserIcon />
                             </Link>
@@ -55,10 +91,7 @@ export default function AuthLinks({onClick}) {
                         <div>
                             <button
                                 disabled={loading}
-                                onClick={() => {
-                                    setLoading(true);
-                                    logoutHandler();
-                                }}
+                                onClick={handleLogout}
                                 className="cursor-pointer -mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold  hover:bg-white bg-amber-100"
                             >
                                 {loading ? <Spinner /> : " Logout"}

@@ -1,7 +1,6 @@
 import {useState} from "react";
 import {Dialog, DialogPanel} from "@headlessui/react";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
-import {Link} from "react-router";
 import NavLinks from "./nav-links/NavLinks";
 import AuthLinks from "./nav-links/AuthLinks";
 import Logo from "../logo/Logo";
@@ -48,14 +47,10 @@ export default function Header() {
                     <div className="fixed inset-0 z-50" />
                     <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
                         <div className="flex items-center justify-between">
-                            <Link to="/" className="-m-1.5 p-1.5">
-                                <span className="sr-only">Your Company</span>
-                                <img
-                                    alt="Your Company"
-                                    src="/logo.svg"
-                                    className="mx-auto h-30 w-auto rounded-4xl"
-                                />
-                            </Link>
+                            <Logo
+                                className="-m-1.5 p-1.5"
+                                imgClassName="mx-auto h-30 w-auto rounded-4xl"
+                            />
                             <button
                                 type="button"
                                 onClick={() => setMobileMenuOpen(false)}
@@ -76,7 +71,9 @@ export default function Header() {
                                     />
                                 </div>
                                 <div className="py-6">
-                                    <AuthLinks />
+                                    <AuthLinks
+                                        onClick={mobileNavLinkClickHandler}
+                                    />
                                 </div>
                             </div>
                         </div>
